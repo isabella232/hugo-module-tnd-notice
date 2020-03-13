@@ -1,0 +1,41 @@
+{{/*
+  Print
+  Prints the markup for the Notice. To customize:
+  
+  1. create homonymous partial files in your projects `/layouts/partials/tnd-notice/print.html`
+  2. Use tnd-notice/GetNotice to grab Notice data as illustrated in code below
+
+  @context Map
+    String (.title)
+    String (.content)
+    String (.raw_content)
+    String (.read_more)
+    Page (.page)
+
+  @access public
+
+  @example - Go Template
+  {{ partialCached "tnd-notice/print.html" . "tnd-notice/print" }}
+*/}}
+<style>
+  .tnd-notice{
+    background: red;
+    text-align: center;
+    padding: .5rem 20rem;
+  }
+  .tnd-notice a{
+    text-decoration: underline;
+    color: inherit;
+  }
+</style>
+{{ $notice := partialCached "tnd-notice/GetNotice" . "tnd-notice/GetNotice" }}
+{{ with $notice }}
+  <div class="tnd-notice">
+    {{ with .title }}
+      <strong>{{ . }}</strong>
+    {{ end }}
+    {{ with .content }}
+      {{ . }}
+    {{ end }}
+  </div>
+{{ end }}

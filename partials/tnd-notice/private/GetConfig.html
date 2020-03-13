@@ -1,0 +1,43 @@
+{{/*
+  GetConfig
+  Retrieve the plugin's config set in the site's Params.
+  Retrieve the notice config set in a page Params when available
+
+  @author @regisphilibert
+
+  @context Anything (.)
+
+  @access private
+
+  @return Map
+
+  @example - Go Template
+    {{ with partialCached "tnd-notice/private/GetConfig" . "tnd-notice/GetConfig" }}
+      {{ $config = . }}
+    {{ end }}
+*/}}
+{{ $config := dict }}
+
+{{ with site.Params.tnd_notice }}
+  {{ $config = . }}
+{{ end }}
+{{ with $config.page }}
+  {{ with site.GetPage . }}
+    {{ $page_config := dict }}
+    {{ $config = $config | merge (dict "page" .) }}
+    {{ with .Params.tnd_notice.title }}
+      {{ $page_config = $page_config | merge (dict "title" .) }}
+    {{ end }}
+    {{ with .Params.tnd_notice.content }}
+      {{ $page_config = $page_config | merge (dict "content" .) }}
+    {{ end }}
+    {{ with .Params.tnd_notice.read_more }}
+      {{ $page_config = $page_config | merge (dict "read_more" .) }}
+    {{ end }}
+    {{ with $page_config }}
+      {{ $config = merge $page_config $config }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+
+{{ return $config }}
