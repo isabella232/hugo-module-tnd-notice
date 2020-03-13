@@ -20,7 +20,7 @@
 */}}
 {{ $return := dict }}
 
-{{ with partialCached "tnd-notice/private/GetConfig" . "tnd-notice/GetConfig" }}
+{{ with $config := partialCached "tnd-notice/private/GetConfig" . "tnd-notice/GetConfig" }}
 
   {{ $title := "" }}
   {{ $raw_content := "" }}
@@ -38,7 +38,7 @@
   {{ end }}
 
   {{ with $config.read_more }}
-    {{ with parse.Urls . }}
+    {{ with urls.Parse . }}
       {{ $read_more = $config.read_more }}
     {{ else }}
       {{ with $config.page }}

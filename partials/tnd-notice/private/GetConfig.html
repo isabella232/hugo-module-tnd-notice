@@ -26,13 +26,13 @@
     {{ $page_config := dict }}
     {{ $config = $config | merge (dict "page" .) }}
     {{ with .Params.tnd_notice.title }}
-      {{ $page_config = $page_config | merge (dict "title" .) }}
+      {{ $page_config = $page_config | merge (dict "title" .) }}
     {{ end }}
     {{ with .Params.tnd_notice.content }}
-      {{ $page_config = $page_config | merge (dict "content" .) }}
+      {{ $page_config = $page_config | merge (dict "content" .) }}
     {{ end }}
     {{ with .Params.tnd_notice.read_more }}
-      {{ $page_config = $page_config | merge (dict "read_more" .) }}
+      {{ $page_config = $page_config | merge (dict "read_more" .) }}
     {{ end }}
     {{ with $page_config }}
       {{ $config = merge $page_config $config }}
