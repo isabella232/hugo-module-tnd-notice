@@ -1,0 +1,77 @@
+{{/*
+  GetNotice
+  Make sure the given map for a rule matches the expecting data structure
+
+  @author @regisphilibert
+
+  @context Any (.)
+
+  @return Map
+        String (.title)
+        String (.content)
+        String (.raw_content)
+        String (.read_more)
+        Page (.page)
+
+  @access private
+
+  @example - Go Template
+    {{ $rule := partialCached "tnd-notice/private/GetNotice" . "tnd-notice/GetNotice" }}
+*/}}
+{{ $return := dict }}
+
+{{ with $config := partialCached "tnd-notice/private/GetConfig" . "tnd-notice/GetConfig" }}
+  {{ if not $config.disable }}
+    {{ $title := "" }}
+    {{ $raw_content := "" }}
+    {{ $content := "" }}
+    {{ $read_more := "" }}
+    {{ $page := false }}
+
+    {{ with $config.disabled }}
+      {{ $disabled = . }}
+    {{ end }}
+
+    {{ with $config.title }}
+      {{ $title = . }}
+    {{ end }}
+
+    {{ with $config.content }}
+      {{ $raw_content = . }}
+      {{ $content = . }}
+    {{ end }}
+
+    {{ with $config.page }}
+      {{ $page = . }}
+    {{ end }}
+    
+    {{ with .read_more }}
+      {{ $read_more = . }}
+    {{ else }}
+      {{ $read_more = false }}
+    {{ end }}
+
+    {{ with $read_more }}
+      {{ if in (slice  true "true" 1 "1") . }}
+        {{ with $page }}
+          {{ $read_more = .RelPermalink }}
+        {{ end }}
+      {{ else }}
+        {{ $read_more = . }}
+      {{ end }}
+    {{ end }}
+
+    {{ with $read_more }}
+      {{ $link := printf `[Read more](%s)` . }}
+      {{ $content = printf "%s %s" $content $link }}
+    {{ end }}
+
+    {{ with $config.page }}
+      {{ $page = . }}
+    {{ end }}
+
+    {{ $return = dict "title" $title "content" ($content | markdownify) "raw_content" $raw_content "read_more" $read_more "page" $page }}
+  {{ end }}
+{{ end }}
+
+{{ return $return }}

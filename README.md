@@ -23,15 +23,14 @@ __title__: The notice title.
 __content__: The notice content or body.
 __page__: If the notice should link to a page. This needs to be a string formated for Hugo's `GetPage` function. This is only available through the site configuration.
 __read_more__: (default: `true`) If disabled, the _Read more_ link will not be printed, even if a `page` is referenced. 
+__disable__: (default `false`) If set to true, the notice won't show.
 
 ### Through site configuration
 
 ```yaml
 tnd_notice:
   title: Something came up
-  content:  - |
-    Sed posuere consectetur est at [lobortis](https://google.com).
-    Something else.
+  content: "Sed posuere consectetur est [lobortis](https://google.com). Something else."
   page: /notice.md
 ```
 
@@ -52,11 +51,9 @@ tnd_notice:
 ---
 ```
 
-## Not publishing the notice page.
+## Not publishing the notice page (since Hugo 0.64.0).
 
 If for some reason user wishes to configure the notice through a content file but would rather not have it published, they should use Hugo settings to make sure given page is not surfaced by Hugo.
-
-### Build option (since Hugo 0.64.0)
 
 ```yaml
 ---
@@ -66,16 +63,6 @@ tnd_notice:
 _build:
   render: false
   list: false
----
-```
-
-### Draft for older version
-```yaml
----
-title: Important Notice
-tnd_notice:
-  title: Something came up
-draft: true
 ---
 ```
 

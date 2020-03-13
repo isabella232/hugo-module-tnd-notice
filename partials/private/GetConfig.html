@@ -23,8 +23,10 @@
 {{ end }}
 {{ with $config.page }}
   {{ with site.GetPage . }}
-    {{ $page_config := dict }}
-    {{ $config = $config | merge (dict "page" .) }}
+    {{ $page_config := dict "page" . }}
+    {{ with .Params.tnd_notice.disabled }}
+      {{ $page_config = $page_config | merge (dict "disabled" .) }}
+    {{ end }}
     {{ with .Params.tnd_notice.title }}
       {{ $page_config = $page_config | merge (dict "title" .) }}
     {{ end }}
@@ -35,9 +37,11 @@
       {{ $page_config = $page_config | merge (dict "read_more" .) }}
     {{ end }}
     {{ with $page_config }}
-      {{ $config = merge $page_config $config }}
+      {{ $config = merge $config $page_config }}
     {{ end }}
   {{ end }}
+{{ else }}
+ {{ $config = $config | merge (dict "page" false) }}
 {{ end }}
 
 {{ return $config }}
