@@ -9,7 +9,7 @@ Simply add `{{ partialCached "tnd-notice/print.html" . "tnd-notice/print" }}` in
 ### Customize markup.
 
   1. Create homonymous partial files in your project at `/layouts/partials/tnd-notice/print.html`
-  2. Follow comments from...
+  2. Follow [comments](/partials/print.html) from the module's own `print.html`
 
 ## Configure
 
@@ -19,11 +19,11 @@ There are two ways to set the notice, either through the site config or through 
 
 Available keys are:
 
-__title__: The notice title.
-__content__: The notice content or body.
-__page__: If the notice should link to a page. This needs to be a string formated for Hugo's `GetPage` function. This is only available through the site configuration.
-__read_more__: (default: `true`) If disabled, the _Read more_ link will not be printed, even if a `page` is referenced. 
-__disable__: (default `false`) If set to true, the notice won't show.
+- __title__: The notice title.
+- __content__: The notice content or body.
+- __page__: If the notice should link to a page. This needs to be a string formated for Hugo's `GetPage` function. This is only available through the site configuration.
+- __read_more__: (default: `true`) If disabled, the _Read more_ link will not be printed, even if a `page` is referenced. 
+- __disable__: (default `false`) If set to true, the notice won't show.
 
 ### Through site configuration
 
