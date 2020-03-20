@@ -33,9 +33,7 @@
     {{ with .Params.tnd_notice.content }}
       {{ $page_config = $page_config | merge (dict "content" .) }}
     {{ end }}
-    {{ with .Params.tnd_notice.read_more }}
-      {{ $page_config = $page_config | merge (dict "read_more" .) }}
-    {{ end }}
+    
     {{ with $page_config }}
       {{ $config = merge $config $page_config }}
     {{ end }}

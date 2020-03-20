@@ -4,3 +4,5 @@ module:
   mounts:
     - source: partials
       target: layouts/partials/tnd-notice
+    - source: i18n
+      target: i18n
