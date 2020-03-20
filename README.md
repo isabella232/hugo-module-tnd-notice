@@ -22,7 +22,6 @@ Available keys are:
 - __title__: The notice title.
 - __content__: The notice content or body.
 - __page__: If the notice should link to a page. This needs to be a string formated for Hugo's `GetPage` function. This is only available through the site configuration.
-- __read_more__: (default: `true`) If disabled, the _Read more_ link will not be printed, even if a `page` is referenced. 
 - __disable__: (default `false`) If set to true, the notice won't show.
 
 ### Through site configuration
@@ -50,6 +49,7 @@ tnd_notice:
     Something else.
 ---
 ```
+Note that if the referenced page has a body content, a "Read more" button, pointing to said page will be added after the Notice content.
 
 ## Not publishing the notice page (since Hugo 0.64.0).
 
@@ -66,4 +66,14 @@ _build:
 ---
 ```
 
-Also, user should disable the `read_more` from either the site configuration file or the content file's Front Matter.
+## Localisation
+
+For now, only one string is produced by the Module as a "Read more" button. To localize said string, simply add this to your `i18n` directory language files:
+
+```yaml
+# i18n/en.yaml
+- id: tnd_notice_read_more
+  translation: My own read more
+```
+
+Important: If your site language is not english, and no translation is provided for `tnd_notidce_read_more` the link will fail.
